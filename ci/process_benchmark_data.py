@@ -18,7 +18,7 @@ new_data = {}
 
 for file in os.listdir(os.fsencode("./artifacts")):
     platform = os.fsdecode(file)
-    with open("./artifacts/"+platform+"/benchmarks_results.json", "r") as f:
+    with open(f"./artifacts/{platform}/benchmarks_results.json", "r") as f:
         new_data[platform] = json.load(f)
 
 with open("./gh-pages/v2/benchmark_results.json", "r") as f:
@@ -64,7 +64,7 @@ for platform, platformResults in res.items():
 
             print(f"{name} | {print_metric(rxcpp_value)} | {print_metric(rpp_value)}| {print_metric(prev_value)} | {ratio if ratio else 0:.2f}")
         print("\n</details>")
-    print(f"</details>")
+    print("</details>")
 
 with open("./gh-pages/v2/benchmark_results.json", "w") as f:
     json.dump(res, f, indent=4)

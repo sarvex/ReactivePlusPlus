@@ -38,13 +38,12 @@ for l in content:
         marble_name = l[i:].rstrip()
         start = l.find("*")
         text_to_print = f"{l[:start+1]}@image html {marble_name}.svg \r\n"
+    elif re.match(r"[\s]*\*.*", l):
+        joined = '\n'.join(marble_content)
+        generate_svg(marble_name, f"marble {marble_name} \n {joined}")
+        marble_name= None
+        marble_content = []
+        sys.stdout.write(text_to_print)
+        sys.stdout.write(l)
     else:
-        if re.match(r"[\s]*\*.*", l):
-            joined = '\n'.join(marble_content)
-            generate_svg(marble_name, f"marble {marble_name} \n {joined}")
-            marble_name= None
-            marble_content = []
-            sys.stdout.write(text_to_print)
-            sys.stdout.write(l)
-        else:
-            marble_content.append(l)
+        marble_content.append(l)
